@@ -8,7 +8,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ~/workspaces/mongodb_data:/bitnami
+      - ./mongodb_data:/bitnami
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=localhost
       - MONGODB_USERNAME=user0
