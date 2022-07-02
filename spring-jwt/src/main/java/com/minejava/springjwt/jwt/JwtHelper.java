@@ -21,9 +21,9 @@ import lombok.extern.log4j.Log4j2;
 public class JwtHelper {
     static final String issuer = "MyApp";
 
-    @Value("#{${accessTokenExpirationsMinutes} * 60 * 1000}")
+    @Value("#{5 * 60 * 1000}")
     private int accessTokenExpirationMs;
-    @Value("#{${refreshTokenExpirationDays} 24 * 60 * 60 * 1000}")
+    @Value("#{30 * 24 * 60 * 60 * 1000}")
     private int refreshTokenExpirationMs;
 
     private Algorithm accessTokenAlgorithm;

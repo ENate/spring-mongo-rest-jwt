@@ -1,0 +1,19 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: mongodb-example
+
+  data:
+    mongodb:
+      host:localhost
+      port:27017
+      username:root
+      password:example
+      database:db
+      authentication-database:db1
+accessTokenExpirationsMinutes=5
+refreshTokenExpirationDays=30
+accessTokenSecret=12345
+refreshTokenSecret=54321

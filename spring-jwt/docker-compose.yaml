@@ -1,13 +1,13 @@
 version: '2'
 
 services:
-  mongodb-dev-primary:
-    image: 'bitnami/mongodb:latest'
-    container_name: mongodb-dev-primary
+   mongodb:
+    image: bitnami/mongodb:latest
+    container_name: mongodb
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
-      - ./mongodb_data:/bitnami
+      - ~/apps/mongo:/data/db
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=localhost
       - MONGODB_USERNAME=user1

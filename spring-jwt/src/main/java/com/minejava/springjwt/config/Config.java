@@ -6,12 +6,25 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 
 @Configuration
 public class Config extends AbstractMongoClientConfiguration{
     
-    @Value("spring.data.mongodb.database")
+    // @Value("spring.data.mongodb.database")
+    // private String databaseName;
+
+    // @Value("${spring.data.mongodb.uri}")
+    // private String mongoDbUri;
+
+    @Value("${spring.data.mongodb.database}")
     private String databaseName;
+    @Value("${spring.data.mongodb.uri}")
+    private String mongoDbUri;
+
 
     @Override
     protected String getDatabaseName() {
@@ -22,6 +35,15 @@ public class Config extends AbstractMongoClientConfiguration{
     @Override
     protected boolean autoIndexCreation() {
         return true;
+    }
+
+    public @Bean MongoClient mongoClient() {
+        return MongoClients.create(mongoDbUri);
+    }
+
+    public @Bean
+    MongoTemplate mongoTemplate() {
+        return new MongoTemplate(mongoClient(), databaseName);
     }
 
     //Enabled index creation and define auto transaction
