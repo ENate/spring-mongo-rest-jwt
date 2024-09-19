@@ -1,6 +1,6 @@
 package com.minejava.springjwt.dto;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;

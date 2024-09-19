@@ -1,7 +1,5 @@
 package com.minejava.springjwt.rest;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,8 +14,13 @@ import com.minejava.springjwt.repository.UserRepository;
 @RestController
 @RequestMapping("/api/users")
 public class UserREST {
-    @Autowired
-    UserRepository userRepository;
+	
+    
+    private final UserRepository userRepository;
+    
+    public UserREST(UserRepository userRepo) {
+    	this.userRepository = userRepo;
+    }
 
     @GetMapping("/me")
     public ResponseEntity<?> me(@AuthenticationPrincipal User user) {

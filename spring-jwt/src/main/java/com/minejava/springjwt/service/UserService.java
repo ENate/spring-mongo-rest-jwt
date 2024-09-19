@@ -1,6 +1,5 @@
 package com.minejava.springjwt.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,11 @@ import com.minejava.springjwt.repository.UserRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {

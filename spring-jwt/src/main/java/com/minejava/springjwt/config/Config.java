@@ -37,7 +37,8 @@ public class Config extends AbstractMongoClientConfiguration{
         return true;
     }
 
-    public @Bean MongoClient mongoClient() {
+    @Bean 
+    public MongoClient mongoClient() {
         return MongoClients.create(mongoDbUri);
     }
 

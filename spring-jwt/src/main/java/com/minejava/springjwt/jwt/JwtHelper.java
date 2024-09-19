@@ -26,10 +26,10 @@ public class JwtHelper {
     @Value("#{30 * 24 * 60 * 60 * 1000}")
     private long refreshTokenExpirationMs;
 
-    private Algorithm accessTokenAlgorithm;
-    private Algorithm refreshTokenAlgorithm;
-    private JWTVerifier accessTokenVerifier;
-    private JWTVerifier refreshTokenVerifier;
+    private final Algorithm accessTokenAlgorithm;
+    private final Algorithm refreshTokenAlgorithm;
+    private final JWTVerifier accessTokenVerifier;
+    private final JWTVerifier refreshTokenVerifier;
 
     public JwtHelper(@Value("${accessTokenSecret}") String accessTokenSecret, @Value("${refreshTokenSecret}") String refreshTokenSecret, @Value("${refreshTokenExpirationDays}") int refreshTokenExpirationDays) {
         //accessTokenExpirationMs = (long) accessTokenExpirationMinutes * 60 * 1000;

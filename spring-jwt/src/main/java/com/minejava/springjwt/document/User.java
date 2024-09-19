@@ -36,7 +36,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // DO Auto-generated method stub
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     @Override

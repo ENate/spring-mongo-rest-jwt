@@ -1,8 +1,7 @@
 package com.minejava.springjwt.rest;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,19 +28,27 @@ import com.minejava.springjwt.service.UserService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthREST {
-    
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    TokenRefreshRepository refreshTokenRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    JwtHelper jwtHelper;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    UserService userService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final TokenRefreshRepository refreshTokenRepository;
+
+    private final UserRepository userRepository;
+
+    private final JwtHelper jwtHelper;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserService userService;
+
+    public AuthREST(AuthenticationManager authenticationManager, TokenRefreshRepository refreshTokenRepository, UserRepository userRepository, JwtHelper jwtHelper, PasswordEncoder passwordEncoder, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.refreshTokenRepository = refreshTokenRepository;
+        this.userRepository = userRepository;
+        this.jwtHelper = jwtHelper;
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+    }
 
     @PostMapping("/login")
     @Transactional // - ACID properties
@@ -50,6 +57,10 @@ public class AuthREST {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = (User) authentication.getPrincipal();
 
+        return getResponseEntity(user);
+    }
+
+    private ResponseEntity<?> getResponseEntity(User user) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setOwner(user);
         refreshTokenRepository.save(refreshToken);
@@ -67,14 +78,7 @@ public class AuthREST {
         User user = new User(dto.getUsername(), dto.getEmail(), passwordEncoder.encode(dto.getPassword()));
         userRepository.save(user);
 
-        RefreshToken refreshToken = new RefreshToken();
-        refreshToken.setOwner(user);
-        refreshTokenRepository.save(refreshToken);
-
-        String accessToken = jwtHelper.generateAccessToken(user);
-        String refreshTokenString = jwtHelper.generateRefreshToken(user, refreshToken);
-
-        return ResponseEntity.ok(new TokenDTO(user.getId(), accessToken, refreshTokenString));
+        return getResponseEntity(user);
     }
 
     @PostMapping("logout")
@@ -127,14 +131,7 @@ public class AuthREST {
 
             User user = userService.findById(jwtHelper.getUserIdFromRefreshToken(refreshTokenString));
 
-            RefreshToken refreshToken = new RefreshToken();
-            refreshToken.setOwner(user);
-            refreshTokenRepository.save(refreshToken);
-
-            String accessToken = jwtHelper.generateAccessToken(user);
-            String newRefreshTokenString = jwtHelper.generateRefreshToken(user, refreshToken);
-
-            return ResponseEntity.ok(new TokenDTO(user.getId(), accessToken, newRefreshTokenString));
+            return getResponseEntity(user);
         }
 
         throw new BadCredentialsException("invalid token");
