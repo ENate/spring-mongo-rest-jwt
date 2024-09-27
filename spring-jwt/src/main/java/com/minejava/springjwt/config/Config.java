@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.lang.NonNull;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -27,6 +28,7 @@ public class Config extends AbstractMongoClientConfiguration{
 
 
     @Override
+    @NonNull
     protected String getDatabaseName() {
         // DONE Auto-generated method stub
         return databaseName;
@@ -37,7 +39,8 @@ public class Config extends AbstractMongoClientConfiguration{
         return true;
     }
 
-    @Bean 
+    @Bean
+    @NonNull
     public MongoClient mongoClient() {
         return MongoClients.create(mongoDbUri);
     }
