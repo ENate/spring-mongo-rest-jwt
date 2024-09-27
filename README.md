@@ -5,21 +5,23 @@ In order to run the application, we need the following tools and frameworks:
 
 Technology Stack
 - Maven
-- Spring boot 3.1+
+- Spring boot 3.3+
 - Mongo Database
 - Spring Security
 
-It The design is based on the latest Spring Boot MVC, Spring Security, Spring Mongo and related
-libraries and frameworks. To build and run the application do
+This implementation is based on the latest Spring Boot MVC, Spring Security, Spring Mongo Database, including the many third party libraries and frameworks. Follow the following steps in order to run the application:
 
-```git clone <repo>
-```
+1) Clone the repository using ```git clone <repo-name> ```
 
-From the terminal (assuming JDK is installed and set or via Sdkman):
+From the terminal (if JDK is installed using sdkman and/or set explicitly, if installed using the classical method).
+
+2) I decided to implement this example using Maven. Assuming maven is installed on your classpath:
 
 ```
 mvn spring-boot:run ```
 
-Also use any IDE which you are most comfortable and productive with. Many of the recents IDEs 
+This example can be run or updated using any of the Java EE IDEs. You may use any of the IDEs for which you are most comfortable and productive with. Many of the recents IDEs 
 contain useful tools via their graphical user interfaces which can be used to run the application.
+ ## For Angular
 
+* Details soon.
